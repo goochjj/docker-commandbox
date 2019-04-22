@@ -12,8 +12,8 @@ if [ -d "$HOME/.CommandBox" ]; then
   box artifacts clean --force
 fi
 
-# Cleanup
+# Cleanup - only works as root
 # More unecessary files
-rm -rf /var/lib/{cache,log}/
+rm -rf /var/lib/{cache,log}
 # Remove Unecessary OS FIles
 rm -rf /usr/share/icons /usr/share/doc /usr/share/man /usr/share/locale /tmp/*.*
