@@ -8,7 +8,9 @@ rm -rf $HOME/.CommandBox/cfml/system/mdCache/*
 # Remove the felix cache
 rm -rf $HOME/.CommandBox/engine/cfml/cli/lucee-server/felix-cache/*
 # Clear downloaded artifacts
-box artifacts clean --force
+if [ -d "$HOME/.CommandBox" ]; then
+  box artifacts clean --force
+fi
 
 # Cleanup
 # More unecessary files

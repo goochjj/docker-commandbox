@@ -8,8 +8,11 @@ ARG COMMANDBOX_VERSION
 # Default to UTF-8 file.encoding
 ENV LANG C.UTF-8
 
+RUN useradd -c "commandbox" -M -G www-data -d /opt/box/ box
+
 # Since alpine runs as a single user, we need to create a "root" direcotry
-ENV HOME /root
+RUN mkdir -p /opt/box && chown box.box /opt/box/
+ENV HOME /opt/box
 
 ### Directory Mappings ###
 # BIN_DIR = Where the box binary goes
@@ -38,11 +41,20 @@ RUN chmod +x $BUILD_DIR/*.sh
 # Commandbox Installation
 RUN $BUILD_DIR/util/install-commandbox.sh
 
+USER box
+# Expand and setup home
+RUN $BUILD_DIR/util/prep-commandbox.sh
+
 # CFConfig Installation
 RUN $BUILD_DIR/util/install-cfconfig.sh
 
 # CommandBox-DotEnv Installation
 RUN $BUILD_DIR/util/install-dotenv.sh
+
+USER root
+RUN $BUILD_DIR/util/optimize.sh
+
+USER box
 
 # Default Port Environment Variables
 ENV PORT 8080

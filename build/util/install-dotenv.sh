@@ -4,4 +4,5 @@ set -ex
 
 # Install the CommandBox-DotEnv module
 box install commandbox-dotenv --production
-$BUILD_DIR/util/optimize.sh
+#Root
+#$BUILD_DIR/util/optimize.sh
